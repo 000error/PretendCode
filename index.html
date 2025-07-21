@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VScoding Lite</title>
+    <style>
+        /* 强化字体回退机制 */
+        @font-face {
+            font-family: 'SystemFont';
+            src: local('Segoe UI'), local('Microsoft YaHei'), local('SimHei'), local('SimSun'), local('Arial Unicode MS'), local('Arial'), local('sans-serif');
+            font-display: swap;
+        }
+        
+        /* 全局字体设置 - 完全离线中文支持 */
+        * {
+            font-family: 'ChineseFallback', 'Segoe UI', 'Microsoft YaHei UI', 'Microsoft YaHei', '微软雅黑', 'SimHei', '黑体', 'SimSun', '宋体', 'NSimSun', '新宋体', 'FangSong', '仿宋', 'KaiTi', '楷体', 'Arial Unicode MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Tahoma', Arial, Helvetica, sans-serif !important;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: "liga" 1, "kern" 1;
+            font-variant-ligatures: common-ligatures;
+            /* 字符编码和显示优化 */
+            unicode-bidi: embed;
+            direction: ltr;
+            font-synthesis: weight style;
+        }
+        
+        /* 图标字体特殊处理 */
+        .fas, .far, .fab, .fal, .fad, [class*="fa-"] {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "FontAwesome", "Font Awesome 5 Free", "Font Awesome 5 Pro" !important;
+            font-weight: 900 !important;
+            font-style: normal !important;
+            text-rendering: auto !important;
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+        }
+        
+        /* 确保文本内容使用系统字体 */
+        .tab-label, .sidebar-title, .menu-item, .dropdown-item span, .welcome-content, .action-item {
+            font-family: 'Segoe UI', 'Microsoft YaHei', 'SimHei', 'SimSun', 'Arial Unicode MS', Arial, sans-serif !important;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- 本地字体和图标CSS -->
+    <link rel="stylesheet" href="fonts/fontawesome-local.css">
+    <link rel="stylesheet" href="fonts/ui-icons.css">
+    <script src="scripts/font-fallback.js"></script>
+    <script src="scripts/window-controls-fix.js"></script>
+</head>
+<body>
+    <!-- 自定义标题栏 -->
+    <div class="titlebar">
+        <div class="titlebar-drag-region">
+            <div class="window-controls-container">
+                <div class="window-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="window-title">VScoding Lite</div>
+            </div>
+            <div class="window-controls">
+                <button class="window-control" id="minimize-btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="window-control" id="maximize-btn">
+                    <i class="far fa-square"></i>
+                </button>
+                <button class="window-control close" id="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主菜单栏 -->
+    <div class="menubar">
+        <div class="menu-item dropdown" id="file-menu">
+            File
+            <div class="dropdown-content" id="file-dropdown">
+                <div class="dropdown-item" id="menu-new-file">
+                    <i class="fas fa-file-plus"></i>
+                    <span>新建文件</span>
+                    <span class="shortcut">Ctrl+N</span>
+                </div>
+                <div class="dropdown-item" id="menu-open-file">
+                    <i class="fas fa-folder-open"></i>
+                    <span>打开文件</span>
+                    <span class="shortcut">Ctrl+O</span>
+                </div>
+                <div class="dropdown-separator"></div>
+                <div class="dropdown-item">
+                    <i class="fas fa-save"></i>
+                    <span>保存</span>
+                    <span class="shortcut">Ctrl+S</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-save"></i>
+                    <span>另存为</span>
+                    <span class="shortcut">Ctrl+Shift+S</span>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item dropdown" id="edit-menu">
+            Edit
+            <div class="dropdown-content" id="edit-dropdown">
+                <div class="dropdown-item">
+                    <i class="fas fa-undo"></i>
+                    <span>撤销</span>
+                    <span class="shortcut">Ctrl+Z</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-redo"></i>
+                    <span>恢复</span>
+                    <span class="shortcut">Ctrl+Y</span>
+                </div>
+                <div class="dropdown-separator"></div>
+                <div class="dropdown-item">
+                    <i class="fas fa-cut"></i>
+                    <span>剪切</span>
+                    <span class="shortcut">Ctrl+X</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-copy"></i>
+                    <span>复制</span>
+                    <span class="shortcut">Ctrl+C</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-paste"></i>
+                    <span>粘贴</span>
+                    <span class="shortcut">Ctrl+V</span>
+                </div>
+                <div class="dropdown-separator"></div>
+                <div class="dropdown-item">
+                    <i class="fas fa-search"></i>
+                    <span>查找</span>
+                    <span class="shortcut">Ctrl+F</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="fas fa-search-plus"></i>
+                    <span>替换</span>
+                    <span class="shortcut">Ctrl+H</span>
+                </div>
+                <div class="dropdown-separator"></div>
+                <div class="dropdown-item">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <span>全选</span>
+                    <span class="shortcut">Ctrl+A</span>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item">Selection</div>
+        <div class="menu-item">View</div>
+        <div class="menu-item">Go</div>
+        <div class="menu-item">Run</div>
+        <div class="menu-item">Terminal</div>
+        <div class="menu-item">Help</div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 活动栏 -->
+        <div class="activity-bar">
+            <div class="activity-item active" data-panel="explorer">
+                <i class="fas fa-folder"></i>
+                <span class="tooltip">Explorer</span>
+            </div>
+            <div class="activity-item" data-panel="search">
+                <i class="fas fa-search"></i>
+                <span class="tooltip">Search</span>
+            </div>
+            <div class="activity-item" data-panel="git">
+                <i class="fas fa-code-branch"></i>
+                <span class="tooltip">Source Control</span>
+            </div>
+            <div class="activity-item" data-panel="debug">
+                <i class="fas fa-bug"></i>
+                <span class="tooltip">Run and Debug</span>
+            </div>
+            <div class="activity-item" data-panel="extensions">
+                <i class="fas fa-th-large"></i>
+                <span class="tooltip">Extensions</span>
+            </div>
+        </div>
+
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-title">EXPLORER</span>
+                <div class="sidebar-actions">
+                    <i class="fas fa-file-plus" title="New File"></i>
+                    <i class="fas fa-folder-plus" title="New Folder"></i>
+                    <i class="fas fa-sync-alt" title="Refresh"></i>
+                </div>
+            </div>
+            <div class="sidebar-content">
+                <div class="file-tree">
+                    <!-- 文件树内容将由 JavaScript 动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 编辑器区域 -->
+        <div class="editor-container">
+            <!-- 标签栏 -->
+            <div class="tab-bar">
+                <div class="tab active" data-tab="welcome">
+                    <span class="tab-label">Welcome</span>
+                    <i class="fas fa-times tab-close"></i>
+                </div>
+            </div>
+
+            <!-- 编辑器内容 -->
+            <div class="editor-content">
+                <div class="welcome-screen" id="welcome-tab">
+                    <div class="welcome-content">
+                        <div class="welcome-header">
+                            <h1>🎉 欢迎使用 VScoding Lite</h1>
+                            <p>一个轻量级的代码编辑器，基于 Electron 构建</p>
+                        </div>
+                        <div class="welcome-actions">
+                            <div class="action-group">
+                                <h3>开始</h3>
+                                <div class="action-item" id="new-file-btn">
+                                    <i class="fas fa-file-plus"></i>
+                                    <span>新建文件</span>
+                                    <kbd>Ctrl+N</kbd>
+                                </div>
+                                <div class="action-item" id="open-file-btn">
+                                    <i class="fas fa-folder-open"></i>
+                                    <span>打开文件</span>
+                                    <kbd>Ctrl+O</kbd>
+                                </div>
+                            </div>
+                            <div class="action-group">
+                                <h3>功能特性</h3>
+                                <div class="feature-item">
+                                    <i class="fas fa-rocket"></i>
+                                    <span>无需安装，点击即用</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-desktop"></i>
+                                    <span>VSCode 风格界面</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-code"></i>
+                                    <span>代码语法高亮</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 作者信息区域 -->
+                    <div class="author-info">
+                        <span class="author-text">更多作品访问公众号：坏雷达研究所</span>
+                    </div>
+                </div>
+                <!-- Monaco Editor will be mounted here -->
+                <div id="monaco-editor" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span class="status-item">
+                <i class="fas fa-code-branch"></i>
+                main
+            </span>
+            <span class="status-item">
+                <i class="fas fa-sync-alt"></i>
+                0↓ 0↑
+            </span>
+            <span class="status-item" id="file-info">
+                <i class="fas fa-file"></i>
+                Ready
+            </span>
+        </div>
+        <div class="status-right">
+            <span class="status-item" id="cursor-position">Ln 1, Col 1</span>
+            <span class="status-item">Spaces: 4</span>
+            <span class="status-item">UTF-8</span>
+            <span class="status-item" id="language-mode">Markdown</span>
+        </div>
+    </div>
+
+    <!-- 替换设置弹窗 -->
+    <div class="modal-overlay" id="replace-modal-overlay" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>替换设置</h3>
+                <button class="modal-close" id="replace-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="line-number-input">触发行数：</label>
+                    <input type="number" id="line-number-input" value="0" min="0" placeholder="输入行数（0表示禁用）">
+                    <small class="form-help">设置为0时禁用功能，设置为其他数值时在该行按回车键会保存内容</small>
+                </div>
+                <div class="form-group">
+                    <label>保存位置：</label>
+                    <div class="path-input-group">
+                        <input type="text" id="save-path-input" placeholder="选择保存.md文件或文件夹" readonly>
+                        <button type="button" id="browse-file-btn" class="btn-secondary">
+                            <i class="fas fa-file"></i>
+                            选择.md文件
+                        </button>
+                        <button type="button" id="browse-folder-btn" class="btn-secondary">
+                            <i class="fas fa-folder-open"></i>
+                            选择文件夹
+                        </button>
+                    </div>
+                    <small class="form-help">选择已有的.md文件或选择文件夹（将自动生成新文件）</small>
+                </div>
+                <div class="form-group">
+                    <label>当前设置状态：</label>
+                    <div class="status-display" id="setting-status">
+                        <span class="status-text">功能已禁用（行数为0）</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancel-replace-btn">取消</button>
+                <button type="button" class="btn-primary" id="save-replace-btn">保存设置</button>
+            </div>
+            <div class="usage-tips">
+                <h4>使用技巧</h4>
+                <p><kbd>Enter</kbd> - 仅保存内容</p>
+                <p><kbd>Ctrl + Enter</kbd> - 保存内容并添加额外空行</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

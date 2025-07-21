@@ -1,0 +1,147 @@
+/* 完全离线的字体和图标解决方案 */
+/* 移除所有外部依赖，确保在任何环境下都能正常显示 */
+
+/* 中文字体回退机制 - 覆盖所有Windows版本 */
+@font-face {
+  font-family: 'ChineseFallback';
+  src: local('Microsoft YaHei UI'),
+       local('Microsoft YaHei'),
+       local('微软雅黑'),
+       local('SimHei'),
+       local('黑体'),
+       local('SimSun'),
+       local('宋体'),
+       local('NSimSun'),
+       local('新宋体'),
+       local('FangSong'),
+       local('仿宋'),
+       local('KaiTi'),
+       local('楷体');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ChineseFallback';
+  src: local('Microsoft YaHei UI Bold'),
+       local('Microsoft YaHei Bold'),
+       local('微软雅黑 Bold'),
+       local('SimHei'),
+       local('黑体');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* 本地图标字体回退 */
+@font-face {
+  font-family: 'FontAwesome';
+  src: local('Segoe UI Symbol'), local('Segoe UI Emoji'), local('Segoe MDL2 Assets');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 基础图标类 */
+.fa, .fas, .far, .fab, .fal, .fad, [class*="fa-"] {
+    font-family: 'FontAwesome', 'Segoe UI Symbol', 'Segoe UI', 'Source Han Sans CN', 'Microsoft YaHei', 'SimHei', Arial, sans-serif !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+}
+
+/* 具体图标映射到Unicode符号 */
+.fa-code::before { content: "</>"; }
+.fa-rocket::before { content: "🚀"; }
+.fa-desktop::before { content: "🖥"; }
+.fa-minus::before { content: "−"; }
+.fa-square::before { content: "□"; }
+.fa-times::before { content: "×"; }
+.fa-file-plus::before { content: "📄+"; }
+.fa-folder-open::before { content: "📂"; }
+.fa-save::before { content: "💾"; }
+.fa-undo::before { content: "↶"; }
+.fa-redo::before { content: "↷"; }
+.fa-cut::before { content: "✂"; }
+.fa-copy::before { content: "📋"; }
+.fa-paste::before { content: "📋"; }
+.fa-search::before { content: "🔍"; }
+.fa-search-plus::before { content: "🔍+"; }
+.fa-mouse-pointer::before { content: "🖱"; }
+.fa-folder::before { content: "📁"; }
+.fa-code-branch::before { content: "🌿"; }
+.fa-bug::before { content: "🐛"; }
+.fa-th-large::before { content: "⊞"; }
+.fa-sync-alt::before { content: "🔄"; }
+.fa-folder-plus::before { content: "📁+"; }
+.fa-file::before { content: "📄"; }
+.fa-chevron-right::before { content: "▶"; }
+.fa-chevron-down::before { content: "▼"; }
+.fa-play::before { content: "▶"; }
+.fa-stop::before { content: "⏹"; }
+.fa-terminal::before { content: "⌨"; }
+.fa-cog::before { content: "⚙"; }
+.fa-question-circle::before { content: "❓"; }
+.fa-info-circle::before { content: "ℹ"; }
+.fa-exclamation-triangle::before { content: "⚠"; }
+.fa-check::before { content: "✓"; }
+.fa-plus::before { content: "+"; }
+.fa-edit::before { content: "✏"; }
+.fa-trash::before { content: "🗑"; }
+.fa-download::before { content: "⬇"; }
+.fa-upload::before { content: "⬆"; }
+.fa-home::before { content: "🏠"; }
+.fa-user::before { content: "👤"; }
+.fa-users::before { content: "👥"; }
+.fa-star::before { content: "⭐"; }
+.fa-heart::before { content: "❤"; }
+.fa-bookmark::before { content: "🔖"; }
+.fa-tag::before { content: "🏷"; }
+.fa-tags::before { content: "🏷🏷"; }
+.fa-calendar::before { content: "📅"; }
+.fa-clock::before { content: "🕐"; }
+.fa-envelope::before { content: "✉"; }
+.fa-phone::before { content: "📞"; }
+.fa-globe::before { content: "🌐"; }
+.fa-link::before { content: "🔗"; }
+.fa-lock::before { content: "🔒"; }
+.fa-unlock::before { content: "🔓"; }
+.fa-key::before { content: "🔑"; }
+.fa-shield::before { content: "🛡"; }
+.fa-eye::before { content: "👁"; }
+.fa-eye-slash::before { content: "🙈"; }
+.fa-print::before { content: "🖨"; }
+.fa-camera::before { content: "📷"; }
+.fa-image::before { content: "🖼"; }
+.fa-video::before { content: "📹"; }
+.fa-music::before { content: "🎵"; }
+.fa-volume-up::before { content: "🔊"; }
+.fa-volume-down::before { content: "🔉"; }
+.fa-volume-mute::before { content: "🔇"; }
+
+/* 确保图标在不同环境下都能正常显示 */
+[class*="fa-"]::before {
+    font-family: 'Segoe UI Symbol', 'Segoe UI Emoji', 'Segoe UI', 'Microsoft YaHei', 'SimHei', Arial, sans-serif !important;
+    font-size: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+}
+
+/* 针对中文系统优化 */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    [class*="fa-"]::before {
+        font-family: 'Microsoft YaHei', 'SimHei', 'SimSun', Arial, sans-serif !important;
+    }
+}
+
+/* 确保在所有Windows版本下都能正常显示 */
+@supports not (font-variation-settings: normal) {
+    [class*="fa-"]::before {
+        font-family: Arial, 'Microsoft YaHei', 'SimHei', sans-serif !important;
+    }
+}

@@ -1,0 +1,114 @@
+/* 完全离线的UI图标解决方案 */
+/* 专门解决窗口控制按钮和常用UI图标显示问题 */
+
+/* 窗口控制按钮样式 */
+.window-controls {
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', 'Webdings', 'Wingdings', monospace;
+  font-size: 16px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 最小化按钮 */
+.minimize-btn:before,
+.window-minimize:before,
+[title*="最小化"]:before,
+[title*="minimize"]:before {
+  content: "🗕";
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', monospace;
+}
+
+/* 最大化按钮 */
+.maximize-btn:before,
+.window-maximize:before,
+[title*="最大化"]:before,
+[title*="maximize"]:before {
+  content: "🗖";
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', monospace;
+}
+
+/* 还原按钮 */
+.restore-btn:before,
+.window-restore:before,
+[title*="还原"]:before,
+[title*="restore"]:before {
+  content: "🗗";
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', monospace;
+}
+
+/* 关闭按钮 */
+.close-btn:before,
+.window-close:before,
+[title*="关闭"]:before,
+[title*="close"]:before {
+  content: "🗙";
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', monospace;
+}
+
+/* 备用方案 - 使用简单字符 */
+.minimize-btn.fallback:before { content: "−"; }
+.maximize-btn.fallback:before { content: "□"; }
+.restore-btn.fallback:before { content: "❐"; }
+.close-btn.fallback:before { content: "✕"; }
+
+/* 常用UI图标 */
+.icon-menu:before { content: "☰"; }
+.icon-search:before { content: "🔍"; }
+.icon-settings:before { content: "⚙"; }
+.icon-file:before { content: "📄"; }
+.icon-folder:before { content: "📁"; }
+.icon-save:before { content: "💾"; }
+.icon-edit:before { content: "✏"; }
+.icon-delete:before { content: "🗑"; }
+.icon-copy:before { content: "📋"; }
+.icon-cut:before { content: "✂"; }
+.icon-paste:before { content: "📌"; }
+.icon-undo:before { content: "↶"; }
+.icon-redo:before { content: "↷"; }
+.icon-zoom-in:before { content: "+"; }
+.icon-zoom-out:before { content: "−"; }
+.icon-refresh:before { content: "🔄"; }
+.icon-home:before { content: "🏠"; }
+.icon-back:before { content: "←"; }
+.icon-forward:before { content: "→"; }
+.icon-up:before { content: "↑"; }
+.icon-down:before { content: "↓"; }
+.icon-check:before { content: "✓"; }
+.icon-cross:before { content: "✗"; }
+.icon-info:before { content: "ℹ"; }
+.icon-warning:before { content: "⚠"; }
+.icon-error:before { content: "❌"; }
+.icon-success:before { content: "✅"; }
+
+/* 通用图标类 */
+.ui-icon {
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', 'Webdings', 'Wingdings', 'Segoe UI', monospace;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Electron 窗口控制按钮特殊处理 */
+.titlebar-button,
+.window-controls-container button,
+.electron-titlebar button {
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', monospace !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+}
+
+/* Monaco Editor 图标修复 */
+.monaco-icon-label:before,
+.codicon:before {
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', 'Segoe UI', monospace !important;
+}
+
+/* 确保所有图标都有回退字体 */
+[class*="icon"]:before,
+[class*="fa-"]:before,
+.codicon:before {
+  font-family: 'Segoe UI Symbol', 'Segoe MDL2 Assets', 'Webdings', 'Wingdings', 'Segoe UI', 'Microsoft YaHei', 'SimHei', monospace !important;
+}
