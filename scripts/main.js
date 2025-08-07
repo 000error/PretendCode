@@ -467,6 +467,10 @@ function setupEditorLineListener() {
                 const lineContent = currentEditor.getModel().getLineContent(currentLine);
                 
                 if (lineContent.trim()) {
+                    // 阻止默认的回车行为（防止光标跳到下一行）
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     // 检查是否按下了Ctrl键（用于控制换行行为）
                     const addNewline = e.ctrlKey;
                     
@@ -485,6 +489,12 @@ function setupEditorLineListener() {
                         range: range,
                         text: ''
                     }]);
+                    
+                    // 将光标重新定位到当前行的开始位置
+                    currentEditor.setPosition({
+                        lineNumber: currentLine,
+                        column: 1
+                    });
                 }
             }
         }
